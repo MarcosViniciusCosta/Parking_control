@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import com.cloud.parking.DTO.CriarVagaEstacionamentoDTO;
 import com.cloud.parking.DTO.VagaEstacionamentoDTO;
 import com.cloud.parking.entity.VagaEstacionamento;
 import com.cloud.parking.mapper.Mapeador;
@@ -15,13 +16,11 @@ public class VagaEstacionamentoService
 {
 	private final Mapeador mapeador;
 	
-	public VagaEstacionamentoService(Mapeador mapeador) {
+	public VagaEstacionamentoService(Mapeador mapeador){
 		this.mapeador = mapeador;
 	}
 	
-	
-	
-	public Optional<List<VagaEstacionamentoDTO>> buscarTodos()
+	public Optional<List<VagaEstacionamento>> buscarTodos()
 	{
 		List<VagaEstacionamento> lista = new ArrayList<>();
 		VagaEstacionamento vaga = new VagaEstacionamento();
@@ -32,6 +31,21 @@ public class VagaEstacionamentoService
 		vaga.setUuid(UUID.randomUUID());
 		vaga.setValorConta(0.0);
 		lista.add(vaga);
-		return Optional.of(mapeador.converterVagasEstacionamentoDTO(lista));
+		return Optional.of(lista);
 	}
+
+
+
+	public Optional<VagaEstacionamento> buscarPeloId() {
+		
+		return null;
+	}
+	
+	
+	public VagaEstacionamento criar(CriarVagaEstacionamentoDTO criarvagaEstacionamentoDTO) {
+		
+		return mapeador.converterCriarVagaEstacionamento(criarvagaEstacionamentoDTO);
+	}
+
+	
 }

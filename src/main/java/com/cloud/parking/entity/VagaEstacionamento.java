@@ -3,6 +3,8 @@ package com.cloud.parking.entity;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 public class VagaEstacionamento 
 {
@@ -11,7 +13,9 @@ public class VagaEstacionamento
 	private String estado;
 	private String modelo;
 	private String cor;
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private LocalDateTime dataEntrada;
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private LocalDateTime dataSaida;
 	private Double valorConta;
 	

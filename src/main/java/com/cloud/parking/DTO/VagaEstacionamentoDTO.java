@@ -3,6 +3,7 @@ package com.cloud.parking.DTO;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -12,7 +13,9 @@ public class VagaEstacionamentoDTO {
 	private String estado;
 	private String modelo;
 	private String cor;
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private LocalDateTime dataEntrada;
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private LocalDateTime dataSaida;
 	private Double valorConta;
 	
