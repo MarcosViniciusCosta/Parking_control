@@ -3,15 +3,23 @@ package com.cloud.parking.entity;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-
+@Entity
 public class VagaEstacionamento 
 {
+	@Id
 	private UUID uuid;
+	@NotBlank(message="Licensa não pode ser vazia")
 	private String licensa;
+	@NotBlank(message="Estado não pode ser vazio")
 	private String estado;
+	@NotBlank(message="Modelo não pode ser vazio")
 	private String modelo;
+	@NotBlank(message="Cor não pode ser vazia")
 	private String cor;
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private LocalDateTime dataEntrada;
@@ -19,6 +27,10 @@ public class VagaEstacionamento
 	private LocalDateTime dataSaida;
 	private Double valorConta;
 	
+	public VagaEstacionamento() 
+	{
+		this.uuid = UUID.randomUUID();
+	}
 	
 	public UUID getUuid() {
 		return uuid;

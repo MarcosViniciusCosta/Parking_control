@@ -3,9 +3,11 @@ package com.cloud.parking.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,7 +54,7 @@ public class VagaEstacionamentoController
 	@GetMapping("/{uuid}")
 	public ResponseEntity<Object> buscarPeloId(@PathVariable UUID uuid)
 	{
-		Optional<VagaEstacionamento> objetoEncontrado = vagaEstacionamentoService.buscarPeloId();
+		Optional<VagaEstacionamento> objetoEncontrado = vagaEstacionamentoService.buscarPeloId(uuid);
 		
 		if(objetoEncontrado.isPresent())
 		{
@@ -61,6 +63,16 @@ public class VagaEstacionamentoController
 			return ResponseEntity.badRequest().body("Lista de Estacionamento vazia");
 		
 	}
+	
+	@DeleteMapping("/{uuid}")
+	public ResponseEntity<Object> deletar(@PathVariable UUID uuid)
+	{
+			vagaEstacionamentoService.deletar(uuid);
+			
+			return ResponseEntity.ok().body("Vaga de estacionamento deletada");
+			
+	}
+	
 	
 	
 	@PostMapping()
@@ -73,6 +85,23 @@ public class VagaEstacionamentoController
 	}
 	
 	
+	@PutMapping("/atualizar/{uuid}")
+	public ResponseEntity<Object> atualizar(@RequestBody CriarVagaEstacionamentoDTO atualizarVagaEstacionamentoDTO,@PathVariable UUID uuid)
+	{
+		VagaEstacionamento objetoAtualizado = vagaEstacionamentoService.atualizar(uuid,atualizarVagaEstacionamentoDTO);
+		return ResponseEntity.status(HttpStatus.OK).body(mapeador.converterVagaEstacionamentoDTO(objetoAtualizado));
+		
+	}
+	
+	
+	@PutMapping("/liberarVaga/{uuid}")
+	public ResponseEntity<Object> liberarVaga(@PathVariable UUID uuid)
+	{
+		System.out.println("UUID = " + uuid);
+		VagaEstacionamento objetoAtualizado = vagaEstacionamentoService.liberarVaga(uuid);
+		return ResponseEntity.status(HttpStatus.OK).body(mapeador.converterVagaEstacionamentoDTO(objetoAtualizado));
+		
+	}
 	
 	
 	
